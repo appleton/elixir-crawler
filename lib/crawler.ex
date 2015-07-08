@@ -14,7 +14,10 @@ defmodule Crawler do
   end
 
   def get_all(base, stack) when length(stack) > 0 do
-    Enum.each(stack, fn url -> get(base, url) end)
+    Enum.each stack, fn url ->
+      task = Task.async(fn -> get(base, url) end)
+      Task.await(task, 10_000)
+    end
   end
 
   def get_all(_, _) do

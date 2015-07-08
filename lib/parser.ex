@@ -13,7 +13,7 @@ defmodule Parser do
         base <> link
       %{authority: ^base_authority} ->
         link
-      true ->
+      _ ->
         nil
     end
   end

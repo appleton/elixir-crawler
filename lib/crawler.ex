@@ -4,7 +4,6 @@ defmodule Crawler do
   end
 
   def crawl(url) do
-    HTTPotion.start
     SiteMap.start_link
 
     get_all(url, [url])

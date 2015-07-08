@@ -25,6 +25,7 @@ defmodule Crawler do
     # TODO: each fetch should be in a new process
     IO.puts "getting " <> url
 
+    SiteMap.put_page(url, [])
     %{body: body} = HTTPotion.get(url)
     links = Parser.parse(base, body)
     SiteMap.put_page(url, links)
@@ -33,7 +34,6 @@ defmodule Crawler do
       !SiteMap.has_page?(link)
     end
 
-    # TODO: wait for the current tasks to complete otherwise we get dupes
     get_all(base, to_fetch)
   end
 

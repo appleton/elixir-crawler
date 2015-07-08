@@ -13,15 +13,15 @@ defmodule Crawler do
     IO.puts SiteMap.to_json
   end
 
-  def get_all(base, stack) when length(stack) > 0 do
+  def get_all(_, []) do
+    {:ok}
+  end
+
+  def get_all(base, stack) do
     Enum.each stack, fn url ->
       task = Task.async(fn -> get(base, url) end)
       Task.await(task, 10_000)
     end
-  end
-
-  def get_all(_, _) do
-    {:ok}
   end
 
   def get(base, url) do
